@@ -1,0 +1,152 @@
+function main (.text) {
+    0x400506: push rbp
+    0x400507: rbp = rsp
+    0x40050a: rsp -= 16
+    0x40050e: jmp loop_0x4005eb
+    loop {
+        loop_0x4005eb:
+        # 0x4005eb: cmp dword ptr [rbp - 4], 0x6e
+        # 0x4005ef: jle 0x400513
+        if (*(rbp - 4) > 110)  goto 0x4005f5
+        # 0x400513: cmp dword ptr [rbp - 4], 0
+        # 0x400517: jne 0x40053d
+        if (*(rbp - 4) == 0)  goto 0x400519
+        # 0x40053d: cmp dword ptr [rbp - 4], 0xa
+        # 0x400541: jne 0x400567
+        if (*(rbp - 4) == 10)  goto 0x400543
+        # 0x400567: cmp dword ptr [rbp - 4], 0xf
+        # 0x40056b: jne 0x400579
+        if (*(rbp - 4) == 15)  goto 0x40056d
+        # 0x400579: cmp dword ptr [rbp - 4], 0x14
+        # 0x40057d: jne 0x40059d
+        if (*(rbp - 4) == 20)  goto 0x40057f
+        # 0x40059d: cmp dword ptr [rbp - 4], 0x1e
+        # 0x4005a1: jne 0x4005c7
+        if (*(rbp - 4) == 30)  goto 0x4005a3
+        # 0x4005c7: cmp dword ptr [rbp - 4], 0x28
+        # 0x4005cb: jne 0x4005eb
+        if (*(rbp - 4) == 40)  goto loop_0x4005cd
+    }
+    for (;;) {
+        loop_0x4005cd:
+        # 0x4005cd: cmp dword ptr [rbp - 0xc], 1
+        # 0x4005d1: jne 0x4005df
+        if (*(rbp - 12) == 1) {
+            0x4005d3: edi = 0x40073e "loop1 1"
+            0x4005d8: call puts
+            0x4005dd: jmp 0x4005e9
+        } else {
+            0x4005df: edi = 0x400746 "loop1 2"
+            0x4005e4: call puts
+        }
+        0x4005e9: jmp loop_0x4005cd
+    }
+    # 0x4005a3: cmp dword ptr [rbp - 8], 1
+    # 0x4005a7: jne 0x4005b8
+    if (*(rbp - 8) == 1) {
+        0x4005a9: edi = 0x400736 "3 1"
+        0x4005ae: call puts
+        0x4005b3: jmp 0x40065f
+    } else {
+        0x4005b8: edi = 0x40073a "3 2"
+        0x4005bd: call puts
+        0x4005c2: jmp 0x40065f
+    }
+    goto 0x40065f
+    # 0x40057f: cmp dword ptr [rbp - 8], 1
+    # 0x400583: jne 0x400591
+    if (*(rbp - 8) == 1) {
+        0x400585: edi = 0x40072e "2 1"
+        0x40058a: call puts
+        0x40058f: jmp ret_0x40059b
+    } else {
+        0x400591: edi = 0x400732 "2 2"
+        0x400596: call puts
+    }
+    goto ret_0x40059b
+    0x40056d: edi = 0x400724 "goto exit"
+    0x400572: call puts
+    0x400577: jmp ret_0x40059b
+    ret_0x40059b:
+    0x40059b: leave
+    0x40059c: ret
+    # 0x400543: cmp dword ptr [rbp - 8], 1
+    # 0x400547: jne 0x400558
+    if (*(rbp - 8) == 1) {
+        0x400549: edi = 0x40071c "1 1"
+        0x40054e: call puts
+        0x400553: jmp 0x4005f5
+    } else {
+        0x400558: edi = 0x400720 "1 2"
+        0x40055d: call puts
+        0x400562: jmp 0x4005f5
+    }
+    goto 0x4005f5
+    # 0x400519: cmp dword ptr [rbp - 8], 1
+    # 0x40051d: jne 0x40052e
+    if (*(rbp - 8) == 1) {
+        0x40051f: edi = 0x400714 "0 1"
+        0x400524: call puts
+        0x400529: jmp 0x400614
+    } else {
+        0x40052e: edi = 0x400718 "0 2"
+        0x400533: call puts
+        0x400538: jmp 0x400614
+    }
+    goto 0x400614
+    0x4005f5: edi = 0x40074e "end"
+    0x4005fa: call puts
+    # 0x4005ff: cmp dword ptr [rbp - 4], 0x539
+    # 0x400606: jne 0x400614
+    if (*(rbp - 4) == 1337) {
+        for (;;) {
+            loop_0x400608:
+            0x400608: edi = 0x400752 "loop2"
+            0x40060d: call puts
+            0x400612: jmp loop_0x400608
+        }
+    }
+    # 0x400614: cmp dword ptr [rbp - 8], 1
+    # 0x400618: jne 0x400626
+    if (*(rbp - 8) == 1) {
+        0x40061a: edi = 0x400758 "label1 1"
+        0x40061f: call puts
+        0x400624: jmp 0x400630
+    } else {
+        0x400626: edi = 0x400761 "label1 2"
+        0x40062b: call puts
+    }
+    0x400630: *(rbp - 4) = 0
+    0x400637: jmp loop_0x400659
+    loop {
+        loop_0x400659:
+        # 0x400659: cmp dword ptr [rbp - 4], 0x63
+        # 0x40065d: jle 0x400639
+        if (*(rbp - 4) > 99)  goto 0x40065f
+        # 0x400639: cmp dword ptr [rbp - 4], 0x32
+        # 0x40063d: jne 0x40064b
+        if (*(rbp - 4) == 50) {
+            0x40063f: edi = 0x40076a "for 1"
+            0x400644: call puts
+            0x400649: jmp 0x400655
+        } else {
+            0x40064b: edi = 0x400770 "for 2"
+            0x400650: call puts
+        }
+        0x400655: *(rbp - 4) += 1
+    }
+    # 0x40065f: cmp dword ptr [rbp - 8], 1
+    # 0x400663: jne 0x400671
+    if (*(rbp - 8) == 1) {
+        0x400665: edi = 0x400776 "label2 1"
+        0x40066a: call puts
+        0x40066f: jmp ret_0x40067b
+    } else {
+        0x400671: edi = 0x40077f "label2 2"
+        0x400676: call puts
+    }
+    ret_0x40067b:
+    0x40067b: eax = 0
+    0x400680: leave
+    0x400681: ret
+}

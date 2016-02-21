@@ -1,0 +1,64 @@
+function main (.text) {
+    0x400506: push rbp
+    0x400507: rbp = rsp
+    0x40050a: rsp -= 16
+    # 0x40050e: cmp dword ptr [rbp - 4], 1
+    # 0x400512: jne 0x400520
+    if (*(rbp - 4) == 1) {
+        0x400514: edi = 0x400614 "1"
+        0x400519: call puts
+        0x40051e: jmp 0x400534
+    }
+    0x400520: edi = 0x400616 "2"
+    0x400525: call puts
+    0x40052a: jmp loop_0x400582
+    loop {
+        loop_0x400582:
+        # 0x400582: cmp dword ptr [rbp - 4], 0x7a
+        # 0x400586: jle 0x400579
+        if (*(rbp - 4) > 122)  goto ret_0x400588
+        loop {
+            loop_0x400579:
+            # 0x400579: cmp dword ptr [rbp - 0xc], 0x1c7
+            # 0x400580: jle 0x400570
+            if (*(rbp - 12) > 455)  goto loop_0x400582
+            loop {
+                loop_0x400570:
+                # 0x400570: cmp dword ptr [rbp - 8], 0x314
+                # 0x400577: jle 0x40052c
+                if (*(rbp - 8) > 788)  goto loop_0x400579
+                0x40052c: eax = *(rbp - 4)
+                # 0x40052f: cmp eax, dword ptr [rbp - 0xc]
+                # 0x400532: jne 0x400540
+                if (eax == *(rbp - 12)) {
+                    0x400534: edi = 0x400618 "3"
+                    0x400539: call puts
+                    0x40053e: jmp 0x400566
+                } else {
+                    0x400540: eax = *(rbp - 12)
+                    # 0x400543: cmp eax, dword ptr [rbp - 8]
+                    # 0x400546: jne 0x400554
+                    if (eax == *(rbp - 8)) {
+                        0x400548: edi = 0x40061a "4"
+                        0x40054d: call puts
+                        0x400552: jmp 0x400566
+                    } else {
+                        0x400554: eax = *(rbp - 4)
+                        # 0x400557: cmp eax, dword ptr [rbp - 8]
+                        # 0x40055a: jne 0x400566
+                        if (eax == *(rbp - 8)) {
+                            0x40055c: edi = 0x40061c "5"
+                            0x400561: call puts
+                        }
+                    }
+                }
+                0x400566: edi = 0x40061e "6"
+                0x40056b: call puts
+            }
+        }
+    }
+    ret_0x400588:
+    0x400588: eax = 0
+    0x40058d: leave
+    0x40058e: ret
+}

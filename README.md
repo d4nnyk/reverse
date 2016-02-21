@@ -1,39 +1,43 @@
 Reverse
 =======
 
-Reverse engineering for x86 binaries (elf-format). Generate a more
-readable code (pseudo-C) with colored syntax.
+`Reverse` is a reverse engineering tool used to disassemble binaries.
+It can generate a more readable code (pseudo-C) with colored syntax.
+An interactive mode is still in development.
 
-Warning, the project is still in development, use it at your own risks.
-
-This tool try to disassemble one function (by default `main`). The address
-of the function, or its symbol, can be passed by argument.
+It supports :
+* architectures : x86, ARM, MIPS{64} (partially)
+* formats : ELF, PE, RAW
 
 The `Makefile` is used only for checking tests.
 
+More documentation on the [wiki](https://github.com/joelpx/reverse/wiki)
+
+
 ## Requirements
 
-    python3
-    python-capstone (>= 3.0.1)
-    python-pyelftools
-
-For Python binding of [Capstone engine](http://www.capstone-engine.org), you 
-can install it from PyPi, like followings: 
-
-    sudo pip3 install capstone
-
-You need a terminal with 256 colors, otherwise use the option `-nc`
-(or `--nocolor`).
+* python >= 3.4
+* [capstone](https://github.com/aquynh/capstone)
+* [python-pyelftools](https://github.com/eliben/pyelftools)
+* [pefile](https://github.com/mlaferrera/python3-pefile)
+* [python-msgpack](https://github.com/msgpack/msgpack-python)
+* `c++filt` (available in the binutils Linux package)
+* terminal with 256 colors (if not, use the option `--nocolor`)
 
 
-## Screenshots
+## Installation
 
-    $ ./reverse.py tests/nestedloop1.bin
+    ./requirements.sh
+    python3 setup.py install
 
-![reverse](http://hippersoft.fr/projects/rev.jpg)
 
+## Pseudo-decompilation of functions
 
-By opening `d3/index.html` you will be able to see the flow graph :
+    $ reverse -i tests/server.bin
+    >> v main
+    # then press tab
 
-![graph](http://hippersoft.fr/projects/graph.jpg)
+![reverse](/images/screenshot.png?raw=true)
+
+![reverse](/images/visual.png?raw=true)
 

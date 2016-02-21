@@ -1,57 +1,81 @@
 #!/bin/bash
 
+color() {
+    local color="$1"
+    if [ "$3" == "" ]; then
+        local prefix=""
+        local txt="$2"
+    else
+        local prefix="$2 "
+        local txt="$3"
+    fi
+    echo -en "${prefix}\x1b[;${color}m${txt}\x1b[0m"
+}
+
 red() {
-    echo -en "\x1b[;31m$1\x1b[0m"
+    color 31 "$1" "$2"
 }
 
 green() {
-    echo -en "\x1b[;32m$1\x1b[0m"
+    color 32 "$1" "$2"
 }
 
+OPTIONS="--nosectionsname --nocolor"
+VERBOSE=0
 
 __diff() {
     local name=$1
     local suffix=""
     local more_opt=""
+    local tmp=tmp$$
 
     if [ "$2" != "" ]; then
         local more_opt="-x=$2"
         local suffix="_$2"
     fi
 
-    echo -n "$name$suffix "
 
     if [ -f "tests/${name}${suffix}.rev" ]; then
-        ./reverse.py "tests/${name}.bin" $more_opt --nocolor --nograph >tmp 2>/dev/null
+        ./run_reverse.py "tests/${name}.bin" $more_opt $OPTIONS >$tmp 2>/dev/null
         if [ $? -eq 0 ]; then
-            if [ $verbose -eq 1 ]; then
-                diff -b tmp "tests/${name}${suffix}.rev"
+            if [ $VERBOSE -eq 1 ]; then
+                diff $tmp "tests/${name}${suffix}.rev" 
             else
-                diff -b tmp "tests/${name}${suffix}.rev" >/dev/null
+                diff -q $tmp "tests/${name}${suffix}.rev" >/dev/null
             fi
 
             if [ $? -eq 0 ]; then
-                green "[OK]\n"
+                green "$name$suffix" "[OK]\n"
             else
-                red "[FAIL]\n"
+                red "$name$suffix" "[FAIL]\n"
             fi
-            rm tmp
+            rm $tmp
         else
-            red "[EXCEPTION]\n"
+            red "$name$suffix" "[EXCEPTION]\n"
         fi
     else
-        red "[NOT FOUND]\n"
+        red "$name$suffix" "[NOT FOUND]\n"
     fi
 }
 
-verbose=0
 name=`basename "$1" .rev`
 shift
 
-if [ "$1" == "verbose" ]; then
-    verbose=1
+while true; do
+    case "$1" in
+        "1")
+            VERBOSE=1
+            ;;
+        -*)
+            OPTIONS="$OPTIONS $1"
+            ;;
+        *)
+            break
+            ;;
+    esac
+
     shift
-fi
+done
 
 if [ "$1" == "" ]; then
     __diff "$name"
@@ -61,6 +85,3 @@ else
         shift
     done
 fi
-
-
-

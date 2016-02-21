@@ -1,0 +1,13 @@
+function 0x0 (raw) {
+    0x0: eax = 0
+    0x2: al = '\x0b'
+    0x4: cdq
+    0x5: push edx
+    0x6: push 1752379246 "n/sh"
+    0xb: push 1768042287 "//bi"
+    0x10: ebx = esp
+    0x12: push edx
+    0x13: push ebx
+    0x14: ecx = esp
+    0x16: int 128 ; execve(ebx, ecx, edx)
+}
